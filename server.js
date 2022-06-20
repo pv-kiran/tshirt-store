@@ -1,15 +1,29 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
+require('dotenv').config();
 
-
-// middlewares
+// regular middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.get('/' , (req,res) => {
-   res.send('Hello');
-})
+// db connectivity using mongoose
+const connect = require('./config/db');
+const User = require('./models/User');
+connect()
+    .then(() => {
+        console.log('Connection successfull');
+    })
+    .catch(err => console.log(err));
+
+
+
+
+// router middlewares
+const home = require('./routes/home');
+
+
+app.use('/api/v1',home)
 
 app.listen(PORT , () => {
     console.log(`Server is listening at ${PORT}`)
