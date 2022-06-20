@@ -6,5 +6,4 @@ router.get('/',home)
 
 
 
-
 module.exports = router;

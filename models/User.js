@@ -19,7 +19,7 @@ const userSchema = new Schema({
   password : {
     type: String,
     required: [true , 'Please provide a password'] ,
-    minLength: [6 , 'Password should be at least 6 charactre'] ,
+    minLength: [6 , 'Password should be at least 6 characters'] ,
     select: false
   } ,
   role : {
@@ -29,11 +29,11 @@ const userSchema = new Schema({
   photo : {
       id: {
         type: String,
-        required: true
+        required: [true , 'Please upload a image']
       } ,
-      secured_url: {
+      secure_url: {
         type: String,
-        required: true
+        required: [true , 'Please upload a image']
       }
   } ,
   forgotPassword : String ,
@@ -58,8 +58,12 @@ userSchema.methods.isValidatedPassword = async function(userPassowrd) {
 }
 
 // creating the jwt token
-userSchema.methods.getJWTtoken = function () {
-   return jwt.sign({id: this._id} , process.env.JWT_SECRET ,{expiresIn: JWT_EXPIRY})
+userSchema.methods.getJWTtoken =  function () {
+   console.log('Invoked');
+   console.log(process.env.JWT_SECRET)
+   console.log(process.env.JWT_EXPIRY)
+
+   return jwt.sign({id: this._id} , process.env.JWT_SECRET ,{expiresIn: process.env.JWT_EXPIRY})
 }
 
 // creating forgot password token
