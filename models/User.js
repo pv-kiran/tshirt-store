@@ -68,9 +68,9 @@ userSchema.methods.getJWTtoken =  function () {
 
 // creating forgot password token
 userSchema.methods.genForgotPasswordToken = function() {
-  console.log('Hello');
+  // console.log('Hello');
    const forgotToken = crypto.randomBytes(20).toString();
-   console.log(forgotToken);
+  //  console.log(forgotToken);
    this.forgotPassword = forgotToken;
 
    this.forgotPasswordExpiry = Date.now() + 20 *60 *1000
