@@ -105,6 +105,7 @@ const logout = (req,res) => {
         message:'Logout success'
     })
 }
+
 const forgotpassword = async (req,res) => {
     // console.log(req.protocol);
     // console.log(req.hostname);
@@ -120,7 +121,9 @@ const forgotpassword = async (req,res) => {
         const forgotToken = user.genForgotPasswordToken();
         await user.save({validateBeforeSave: false});
         // console.log(user);
-        const myUrl = `${req.protocol}://${req.hostname}/password/reset/${forgotToken}`;
+        const protocol = req.protocol;
+        const host = req.get('host')
+        const myUrl = `${protocol}://${host}/api/v1/password/reset/${forgotToken}`;
         const message = `Copy paste this link in your url and hit enter \n\n ${myUrl}`;
         try {
             await mailHelper({
@@ -142,6 +145,8 @@ const forgotpassword = async (req,res) => {
     }
 }
 
+
+const resetpassword = 
 
 
 

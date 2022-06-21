@@ -3,7 +3,6 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 require('dotenv').config();
 const  cloudinary = require('cloudinary').v2;
-
 app.set('view engine' , 'ejs');
 
 
@@ -18,6 +17,8 @@ app.use(fileUpload({
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
 
 // db connectivity using mongoose
 const connect = require('./config/db');
