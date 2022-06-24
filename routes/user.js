@@ -5,7 +5,7 @@ const User = require('../models/User');
 // const uploadfile = require('express-fileupload');
 const { StatusCodes } = require('http-status-codes');
 const cloudinary = require('cloudinary').v2;
-const {isAuthenticated , isAdmin , isManager } = require('../middleware/user');
+const {isAuthenticated , isAdmin  } = require('../middleware/user');
 
 
 router.post('/signup' , signup);
@@ -33,11 +33,11 @@ router.put('/admin/user/:id' , isAuthenticated, isAdmin , adminUpdateUserById)
 
 router.delete('/admin/user/:id' , isAuthenticated, isAdmin , adminDeleteUserById)
 
-router.get('/manager/users' ,isAuthenticated, isManager , async (req,res) => {
-     const user = await User.find({role: 'user'});
-     if(!user) {
-        res.status(404).send('No user found');
-     } 
-     res.status(200).json(user);
-} )
+// router.get('/manager/users' ,isAuthenticated, isManager , async (req,res) => {
+//      const user = await User.find({role: 'user'});
+//      if(!user) {
+//         res.status(404).send('No user found');
+//      } 
+//      res.status(200).json(user);
+// } )
 module.exports = router ;

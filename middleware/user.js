@@ -23,17 +23,17 @@ const isAdmin = (req,res,next) => {
         res.status(401).send('You are not allowed to use this resource');
     }
 }
-const isManager = (req,res,next) => {
-    if(req.user.role === 'manager') {
-        next();
-    } else {
-        res.status(401).send('You are not allowed to use this resource');
-    }
-}
+// const isManager = (req,res,next) => {
+//     if(req.user.role === 'manager') {
+//         next();
+//     } else {
+//         res.status(401).send('You are not allowed to use this resource');
+//     }
+// }
 
 
 module.exports = {
     isAuthenticated,
     isAdmin ,
-    isManager
+    // isManager
 };

@@ -34,8 +34,11 @@ connect()
 // router middlewares
 const home = require('./routes/home');
 const user = require('./routes/user');
-app.use('/api/v1',home);
-app.use('/api/v1',user);
+const product = require('./routes/prouct');
+app.use('/api/v1', home);
+app.use('/api/v1', user);
+app.use('/api/v1', product);
+
 
 
 app.get('/signup' , (req,res) => {
