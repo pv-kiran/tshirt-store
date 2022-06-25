@@ -1,0 +1,25 @@
+{
+  "shippingInfo": {
+    "address": "1 Jaipur",
+    "city": "Jaipur",
+    "phoneNo": "9898989898",
+    "postalCode": "302020",
+    "state": "Rajasthan",
+    "country": "India"
+  },
+  "orderItems": [
+    {
+      "name": "Do it",
+      "quantity": 1,
+      "image": "https://res.cloudinary.com/dk81bsiz2/image/upload/v1656049451/products/uxbgydcm68itditqj2jn.jpg",
+      "price": 999,
+      "product": "62b54f2b02dd84edeb9c360d"
+    }
+  ],
+  "paymentInfo": {
+    "id": "testString"
+  },
+  "taxAmount": 40,
+  "shippingAmount": 10,
+  "totalAmount": 100
+}

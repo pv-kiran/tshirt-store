@@ -6,6 +6,10 @@ const cloudinary = require('cloudinary').v2;
 const { isAuthenticated , isAdmin} = require('../middleware/user');
 const Whereclause = require('../utils/whereClause');
 
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const Razorpay = require('razorpay');
+
+
 router.get('/testProduct' , testProduct)
 
 
@@ -255,10 +259,52 @@ router.get('/product/:id/reviews/' , isAuthenticated ,async (req,res) => {
 })
 
 
+router.get('/stripe/key' , async (req,res) => {
+    res.status(200).json({
+        stripeKey: process.env.STRIPE_PUBLIC_KEY
+    })
+})
+
+router.post('/stripe/payment' , async (req,res) => {
+    const paymentIntent = await stripe.paymentIntents.create({
+            amount: req.body.amount,
+            currency: 'inr',
+            automatic_payment_methods: {enabled: true},
+    });
+
+    res.status(200).json({
+        success: true ,
+        client_Secret: paymentIntent.client_secret
+    })
+})
 
 
+router.get('/razorpay/key' , async (req,res) => {
+    res.status(200).json({
+        stripeKey: process.env.RAZOR_PAY_KEY
+    })
+})
 
+router.post('/razorpay/payment' , async (req,res) => {
+    var instance = new Razorpay(
+        { 
+            key_id: process.env.RAZOR_PAY_KEY, 
+            key_secret: process.env.RAZOR_PAY_SECRET
+        })
 
+    const myOrder = instance.orders.create({
+        amount: req.body.amount,
+        currency: "INR",
+        receipt: "receipt#1"
+    });
+
+    res.status(200).json({
+        success: true ,
+        amount: req.body.amount,
+        order: myOrder
+    });
+
+})
 
 module.exports = router;
 

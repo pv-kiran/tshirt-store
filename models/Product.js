@@ -50,6 +50,10 @@ const productSchema = new Schema({
         type: Number ,
         default: 0
     } ,
+    stock: {
+        type: Number,
+        required: [true, 'Please provide number of items in stock']
+    } ,
     numberOfReviews: {
         type: Number ,
         default: 0
