@@ -298,70 +298,7 @@ const userUpdate = async (req,res) => {
     }
 }
 
-const adminAllUsers =  async (req,res) => {
-   const users = await User.find();
-   res.status(200).json({
-        success: true ,
-        users
-   })
-}
 
-const adminGetUserById = async (req,res) => {
-    const {id} = req.params;
-    try {
-         const user = await User.findById(id);
-         if(!user) {
-            res.status(401).send('User not found');
-         }
-         res.status(200).json(user);
-    } catch(err) {
-        res.status(404).send('Something went wrong');
-    }
-}
-
-const adminUpdateUserById = async (req,res) => {
-    const {id} = req.params
-    if(!req.body.name || !req.body.email || !req.body.role) {
-        res.status(400).send('Please provide name and email for updation');
-    }
-    const newData = {
-        name: req.body.name,
-        email: req.body.email,
-        role: req.body.role
-    }
-
-
-    try {
-      const user = await User.findByIdAndUpdate(id , req.body , {
-        new: true,
-        runValidators: true
-      })
-      if(!user) {
-            res.status(400).send('User is not registered');
-      }
-      res.status(200).send('Updated successfully');
-    } catch(err) {
-        res.status(500).send('Internal server error');
-    }
-
-    
-}
-
-const adminDeleteUserById = async (req,res) => {
-    const {id} = req.params
-    try {
-        const user = await User.findById(id);
-        if(!user) {
-            res.status(401).send('No user found')
-        }
-        const imgId = user.photo.id;
-        await cloudinary.uploader.destroy(imgId);
-        await user.remove();
-        res.status(200).send('Deleted');
-    } catch (err) {
-        res.status(404).send('User not found');
-    }
-}
 module.exports = {
     signup ,
     login ,
@@ -370,9 +307,5 @@ module.exports = {
     resetPassword,
     userdetails,
     updatePassword,
-    userUpdate ,
-    adminAllUsers ,
-    adminGetUserById ,
-    adminUpdateUserById,
-    adminDeleteUserById
+    userUpdate 
 }
